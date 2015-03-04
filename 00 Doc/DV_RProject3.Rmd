@@ -43,9 +43,53 @@ source("../01 Data/chaetoceros.R", echo = TRUE)
 ```
 
 *********
-Data Wrangling create new column gene_family by extracting the first three charaters from gene NAME.
-**Figure 1: Comparison of number of genes in different species**
+ Data Wrangling 
+ 
+ 1.For each original table, create new column gene_family by extracting the first three charaters from gene NAME, and further group by gene family.
+```{r}
+source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
+```
+ *********
+ Data Wrangling 1
+ 
+ For each original table, create new column gene_family by extracting the first three charaters from gene NAME, and further group by gene family.
+```{r}
+source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
+```
+*********
+ Data Wrangling 2
+ 
+blalalala
+```{r}
+source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
+```
+*********
+ Data Wrangling 3
+ 
+blalalala
+```{r}
+source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
+```
+ 
+ *********
+ **Figure 1: Comparison of number of genes in different species**
 ```{r}
 source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
 source("../03 Visualizations/R3_figure1.R", echo = TRUE)
 ```
+In this figure, the x axis indicates gene family, the y axis indicates gene number in that family. The red color indicates genes in forward direction (sense strand), and the blue color indicates genes in reverse direction (anti-sense strand).
+
+From this figure, we can see that Cyclotella and Thalassiosira weissflogii has similar number of forward and reverse genes in each gene family, while Cerataulina and Chaetoceros showing different number of forward and reverse genes in each gene family. 
+
+*********
+**Figure 2:       fdafdafdafa**
+*********
+**Figure 3:     fdafdafd**
+
+*********
+**Histogram from non-categorical data**
+```{r}
+source("../01 Data/categorical.R", echo = TRUE)
+source("../03 Visualizations/histogram.R", echo = TRUE)
+```
+
