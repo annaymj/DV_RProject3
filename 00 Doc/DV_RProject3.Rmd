@@ -2,17 +2,42 @@
 ========================================================
 #### Group member: Anna Mengjie Yu (my3852),  Duy Vu (dhv242),  Syed Naqvi (san724)
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring web pages (click the **MD** toolbar button for help on Markdown).
+With the advent of next generation sequencing, the sequencing cost per genome is decreasing significantly. Gene content and gene order has been useful in studying species evolution and ecological adaptation. Good data visualization tools will help community better understand the evolution story underneath the data. In this project, we will be using diatom plastid genome data from several diatom species. Each species may or may not share the same gene content due to environment selection. Difference tables can be joined by the gene names.
 
-When you click the **Knit HTML** button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+The tables contain plastid genome gene content, gene length and gene order, and they are accessible from Supporting Information in Yu's publicaiton. [http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0107854]
+
+*********
+Load packages
 
 ```{r}
-summary(cars)
+source("../01 Data/loadPackage.R", echo = TRUE)
 ```
 
-You can also embed plots, for example:
+*********
+First, we displayed a few lines of the dataset stored in oracle database. The table includes Name(gene name), MINIMUM (gene start position), MAXIMUM(gene end position), LENGTH(gene length), DIRECTION(sense and anti-sense strand).
 
-```{r fig.width=7, fig.height=6}
-plot(cars)
+**Table 1: Cyclotella**
+```{r}
+source("../01 Data/cyclotella.R", echo = TRUE)
 ```
 
+*********
+**Table 2: Thalassiosira weissflogii**
+Thalassiosira weissflogii is a closely related species to Cyclotella. They both belong to the same Thalassiosirales family.
+
+```{r}
+source("../01 Data/weiss.R", echo = TRUE)
+```
+
+*********
+**Table 3: Cerataulina daemon**
+Cerataulina daemon is more closely related to Chaetoros simplex than the two Thalassiosirales.
+```{r}
+source("../01 Data/cerataulina.R", echo = TRUE)
+```
+
+*********
+**Table 4: Chaetoceros simplex**
+```{r}
+source("../01 Data/chaetoceros.R", echo = TRUE)
+```
