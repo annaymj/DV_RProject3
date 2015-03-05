@@ -11,21 +11,21 @@ for (i in names(ocean)) {
   if (i %in% categoricals[[2]]) {
     r <- data.frame(fromJSON(getURL(URLencode('129.152.144.84:5001/rest/native/?query="select \\\""i"\\\" from ocean where \\\""i"\\\" is not null "'),httpheader=c(DB='jdbc:oracle:thin:@129.152.144.84:1521:ORCL',USER='C##cs329e_my3852', PASS='orcl_my3852',MODE='native_mode',MODEL='model',returnDimensions = 'False',returnFor = 'JSON', i=i),verbose = TRUE)))
     p <- myplot1(r,i)
-    print(p) 
+    #print(p) 
     l_hist[[i]] <- p
   }
 }
 
-print(l_hist[[1]])
-startFig <- l_hist[[1]] + ggtitle('Codon Start Position') + geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none",axis.text.x=element_text(angle=50, vjust=0.5))
+#print(l_hist[[1]])
+startFig <- l_hist[[1]] + ggtitle('Codon Start Position') + geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none",axis.text.x=element_text(angle=50, vjust=0.5))+labs(x="Nucleotide position")
 print(startFig)
 
 
-endFig <- l_hist[[2]] + ggtitle('Codon End Position')+ geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none",axis.text.x=element_text(angle=50, vjust=0.5))
-print(endFig)
+endFig <- l_hist[[2]] + ggtitle('Codon End Position')+ geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none",axis.text.x=element_text(angle=50, vjust=0.5))+labs(x="Nucleotide position")
+#print(endFig)
 
-lenFig <- l_hist[[3]] + ggtitle('Gene Length') + geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none",axis.text.x=element_text(angle=50, vjust=0.5))
-print(lenFig)
+lenFig <- l_hist[[3]] + ggtitle('Gene Length') + geom_histogram(aes(fill = ..count..)) + theme(axis.text.x=element_text(angle=50, vjust=0.5))+labs(x="Nucleotide Length")
+#print(lenFig)
 
 #png("/Users/annayu/Desktop/DataVisualization/DV_RProject3/00 Doc/histogram.png", width = 25, height = 30, units = "in", res = 72)
 #grid.newpage()

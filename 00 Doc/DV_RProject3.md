@@ -230,7 +230,21 @@ source("../01 Data/chaetoceros.R", echo = TRUE)
 ```
 
 *********
- Data Wrangling 
+
+**Table 5: Thalassiosira oceanica**
+
+```r
+source("../01 Data/ocean.R", echo = TRUE)
+```
+
+```
+## 
+## > ocean <- data.frame(fromJSON(getURL(URLencode("129.152.144.84:5001/rest/native/?query=\"select * from ocean\""), 
+## +     httpheader = c(DB = "jdbc:or ..." ... [TRUNCATED]
+```
+
+*********
+ Data Wrangling 1
  
  1.For each original table, create new column gene_family by extracting the first three charaters from gene NAME, and further group by gene family.
 
@@ -317,265 +331,101 @@ source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
 ## ..            ...     ...     ...    ...       ...         ...
 ```
  *********
- Data Wrangling 1
- 
- For each original table, create new column gene_family by extracting the first three charaters from gene NAME, and further group by gene family.
-
-```r
-source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
-```
-
-```
-## 
-## > cyc_gf <- cyclotella %>% mutate(gene_family = substr(NAME, 
-## +     1, 3)) %>% group_by(gene_family)
-## 
-## > cyc_gf %>% tbl_df
-## Source: local data frame [180 x 6]
-## 
-##              NAME MINIMUM MAXIMUM LENGTH DIRECTION gene_family
-## 1       psaA gene     103   2,361  2,259   forward         psa
-## 2       psaB gene   2,478   4,679  2,202   forward         psa
-## 3       petF gene   4,912   5,244    333   reverse         pet
-## 4      rpl20 gene   5,425   5,844    420   reverse         rpl
-## 5      rpl35 gene   5,854   6,048    195   reverse         rpl
-## 6      ycf42 gene   6,055   6,690    636   reverse         ycf
-## 7       psaE gene   6,792   6,989    198   reverse         psa
-## 8  trnR(ucu) gene   7,154   7,226     73   reverse         trn
-## 9  trnV(uac) gene   7,237   7,308     72   reverse         trn
-## 10      psbH gene   7,575   7,775    201   reverse         psb
-## ..            ...     ...     ...    ...       ...         ...
-## 
-## > weiss_gf <- weiss %>% mutate(gene_family = substr(NAME, 
-## +     1, 3)) %>% group_by(gene_family)
-## 
-## > weiss_gf %>% tbl_df
-## Source: local data frame [180 x 6]
-## 
-##              NAME MINIMUM MAXIMUM LENGTH DIRECTION gene_family
-## 1      rpl32 gene 120,353 120,517    165   reverse         rpl
-## 2       psbY gene 120,762 120,872    111   reverse         psb
-## 3       rrn5 rRNA 121,057 121,182    126   reverse         rrn
-## 4             rns 121,332 124,090  2,759   reverse         rns
-## 5   trnA-UGC gene 124,179 124,251     73   reverse         trn
-## 6   trnI-GAU gene 124,254 124,327     74   reverse         trn
-## 7             rnl 124,384 125,860  1,477   reverse         rnl
-## 8      ycf89 gene 126,149 127,111    963   reverse         ycf
-## 9  trnP(ugg) gene 127,458 127,531     74   forward         trn
-## 10      psaA gene     142   2,400  2,259   forward         psa
-## ..            ...     ...     ...    ...       ...         ...
-## 
-## > cera_gf <- cera %>% mutate(gene_family = substr(NAME, 
-## +     1, 3)) %>% group_by(gene_family)
-## 
-## > cera_gf %>% tbl_df
-## Source: local data frame [169 x 6]
-## 
-##             NAME MINIMUM MAXIMUM LENGTH DIRECTION gene_family
-## 1      psaA gene     362   2,620  2,259   forward         psa
-## 2      psaB gene   2,712   4,913  2,202   forward         psa
-## 3  trnD-GUC gene   5,037   5,110     74   reverse         trn
-## 4  trnS-GCU gene   5,175   5,260     86   reverse         trn
-## 5  trnI-CAU gene   5,298   5,369     72   reverse         trn
-## 6     ycf33 gene   5,546   5,740    195   forward         ycf
-## 7  trnY-GUA gene   7,698   7,780     83   reverse         trn
-## 8  trnV-UAC gene   8,306   8,371     66   forward         trn
-## 9  trnR-UCU gene   8,383   8,455     73   forward         trn
-## 10     trnT(ugu)   8,768   8,839     72   reverse         trn
-## ..           ...     ...     ...    ...       ...         ...
-## 
-## > chaeto_gf <- chaeto %>% mutate(gene_family = substr(NAME, 
-## +     1, 3)) %>% group_by(gene_family)
-## 
-## > chaeto_gf %>% tbl_df
-## Source: local data frame [169 x 6]
-## 
-##              NAME MINIMUM MAXIMUM LENGTH DIRECTION gene_family
-## 1      ycf45 gene       2   1,168  1,167   reverse         ycf
-## 2       petD gene   1,330   1,812    483   reverse         pet
-## 3       petB gene   1,865   2,512    648   reverse         pet
-## 4   trnS-UGA gene   2,571   2,657     87   reverse         trn
-## 5       psaD gene   2,690   3,109    420   reverse         psa
-## 6  trnfM-CAU gene   3,195   3,266     72   reverse         trn
-## 7       rps2 gene   3,388   4,071    684   reverse         rps
-## 8      rpoC2 gene   4,159   8,406  4,248   reverse         rpo
-## 9      rpoC1 gene   8,435  10,840  2,406   reverse         rpo
-## 10      rpoB gene  10,858  15,099  4,242   reverse         rpo
-## ..            ...     ...     ...    ...       ...         ...
-```
-*********
  Data Wrangling 2
  
-blalalala
+ 
 
 ```r
-source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
+source("../02 Data Wrangling/cyc_FR.R", echo = TRUE)
 ```
 
 ```
 ## 
-## > cyc_gf <- cyclotella %>% mutate(gene_family = substr(NAME, 
-## +     1, 3)) %>% group_by(gene_family)
+## > cyc_gf_forward <- filter(cyc_gf, DIRECTION == "forward")
 ## 
-## > cyc_gf %>% tbl_df
-## Source: local data frame [180 x 6]
+## > cyc_gf_forward %>% tbl_df
+## Source: local data frame [107 x 6]
 ## 
 ##              NAME MINIMUM MAXIMUM LENGTH DIRECTION gene_family
 ## 1       psaA gene     103   2,361  2,259   forward         psa
 ## 2       psaB gene   2,478   4,679  2,202   forward         psa
-## 3       petF gene   4,912   5,244    333   reverse         pet
-## 4      rpl20 gene   5,425   5,844    420   reverse         rpl
-## 5      rpl35 gene   5,854   6,048    195   reverse         rpl
-## 6      ycf42 gene   6,055   6,690    636   reverse         ycf
-## 7       psaE gene   6,792   6,989    198   reverse         psa
-## 8  trnR(ucu) gene   7,154   7,226     73   reverse         trn
-## 9  trnV(uac) gene   7,237   7,308     72   reverse         trn
-## 10      psbH gene   7,575   7,775    201   reverse         psb
+## 3       psbN gene   7,860   7,991    132   forward         psb
+## 4       rbcL gene  16,918  18,390  1,473   forward         rbc
+## 5       rbcS gene  18,429  18,848    420   forward         rbc
+## 6       psbX gene  19,138  19,254    117   forward         psb
+## 7      ycf66 gene  19,444  19,752    309   forward         ycf
+## 8       psbV gene  19,806  20,297    492   forward         psb
+## 9  trnR(ccg) gene  20,396  20,467     72   forward         trn
+## 10      ssra gene  20,522  20,868    347   forward         ssr
 ## ..            ...     ...     ...    ...       ...         ...
 ## 
-## > weiss_gf <- weiss %>% mutate(gene_family = substr(NAME, 
-## +     1, 3)) %>% group_by(gene_family)
+## > cyc_gf_forwardNum <- cyc_gf_forward %>% group_by(gene_family) %>% 
+## +     summarise(forward_gene_num = n())
 ## 
-## > weiss_gf %>% tbl_df
-## Source: local data frame [180 x 6]
+## > cyc_gf_forwardNum
+## Source: local data frame [22 x 2]
+## 
+##    gene_family forward_gene_num
+## 1          atp                2
+## 2          cbb                1
+## 3          ccs                2
+## 4          clp                1
+## 5          gro                1
+## 6          pet                5
+## 7          psa                8
+## 8          psb                9
+## 9          rbc                3
+## 10         rnl                1
+## ..         ...              ...
+## 
+## > cyc_gf_reverse <- filter(cyc_gf, DIRECTION == "reverse")
+## 
+## > cyc_gf_reverse %>% tbl_df
+## Source: local data frame [73 x 6]
 ## 
 ##              NAME MINIMUM MAXIMUM LENGTH DIRECTION gene_family
-## 1      rpl32 gene 120,353 120,517    165   reverse         rpl
-## 2       psbY gene 120,762 120,872    111   reverse         psb
-## 3       rrn5 rRNA 121,057 121,182    126   reverse         rrn
-## 4             rns 121,332 124,090  2,759   reverse         rns
-## 5   trnA-UGC gene 124,179 124,251     73   reverse         trn
-## 6   trnI-GAU gene 124,254 124,327     74   reverse         trn
-## 7             rnl 124,384 125,860  1,477   reverse         rnl
-## 8      ycf89 gene 126,149 127,111    963   reverse         ycf
-## 9  trnP(ugg) gene 127,458 127,531     74   forward         trn
-## 10      psaA gene     142   2,400  2,259   forward         psa
+## 1       petF gene   4,912   5,244    333   reverse         pet
+## 2      rpl20 gene   5,425   5,844    420   reverse         rpl
+## 3      rpl35 gene   5,854   6,048    195   reverse         rpl
+## 4      ycf42 gene   6,055   6,690    636   reverse         ycf
+## 5       psaE gene   6,792   6,989    198   reverse         psa
+## 6  trnR(ucu) gene   7,154   7,226     73   reverse         trn
+## 7  trnV(uac) gene   7,237   7,308     72   reverse         trn
+## 8       psbH gene   7,575   7,775    201   reverse         psb
+## 9       psbT gene   8,016   8,114     99   reverse         psb
+## 10      psbB gene   8,165   9,694  1,530   reverse         psb
 ## ..            ...     ...     ...    ...       ...         ...
 ## 
-## > cera_gf <- cera %>% mutate(gene_family = substr(NAME, 
-## +     1, 3)) %>% group_by(gene_family)
+## > cyc_gf_reverseNum <- cyc_gf_reverse %>% group_by(gene_family) %>% 
+## +     summarise(reverse_gene_num = n())
 ## 
-## > cera_gf %>% tbl_df
-## Source: local data frame [169 x 6]
+## > cyc_gf_reverseNum
+## Source: local data frame [21 x 2]
 ## 
-##             NAME MINIMUM MAXIMUM LENGTH DIRECTION gene_family
-## 1      psaA gene     362   2,620  2,259   forward         psa
-## 2      psaB gene   2,712   4,913  2,202   forward         psa
-## 3  trnD-GUC gene   5,037   5,110     74   reverse         trn
-## 4  trnS-GCU gene   5,175   5,260     86   reverse         trn
-## 5  trnI-CAU gene   5,298   5,369     72   reverse         trn
-## 6     ycf33 gene   5,546   5,740    195   forward         ycf
-## 7  trnY-GUA gene   7,698   7,780     83   reverse         trn
-## 8  trnV-UAC gene   8,306   8,371     66   forward         trn
-## 9  trnR-UCU gene   8,383   8,455     73   forward         trn
-## 10     trnT(ugu)   8,768   8,839     72   reverse         trn
-## ..           ...     ...     ...    ...       ...         ...
+##    gene_family reverse_gene_num
+## 1          atp                6
+## 2          ccs                2
+## 3          chl                1
+## 4          dna                2
+## 5          ffs                1
+## 6          fts                1
+## 7          pet                3
+## 8          psa                3
+## 9          psb               11
+## 10         rbc                1
+## ..         ...              ...
 ## 
-## > chaeto_gf <- chaeto %>% mutate(gene_family = substr(NAME, 
-## +     1, 3)) %>% group_by(gene_family)
-## 
-## > chaeto_gf %>% tbl_df
-## Source: local data frame [169 x 6]
-## 
-##              NAME MINIMUM MAXIMUM LENGTH DIRECTION gene_family
-## 1      ycf45 gene       2   1,168  1,167   reverse         ycf
-## 2       petD gene   1,330   1,812    483   reverse         pet
-## 3       petB gene   1,865   2,512    648   reverse         pet
-## 4   trnS-UGA gene   2,571   2,657     87   reverse         trn
-## 5       psaD gene   2,690   3,109    420   reverse         psa
-## 6  trnfM-CAU gene   3,195   3,266     72   reverse         trn
-## 7       rps2 gene   3,388   4,071    684   reverse         rps
-## 8      rpoC2 gene   4,159   8,406  4,248   reverse         rpo
-## 9      rpoC1 gene   8,435  10,840  2,406   reverse         rpo
-## 10      rpoB gene  10,858  15,099  4,242   reverse         rpo
-## ..            ...     ...     ...    ...       ...         ...
+## > cyc_gf_num <- cyc_gf %>% group_by(gene_family) %>% 
+## +     summarise(total_gene_num = n())
 ```
+
 *********
  Data Wrangling 3
  
 blalalala
 
 ```r
-source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
-```
-
-```
-## 
-## > cyc_gf <- cyclotella %>% mutate(gene_family = substr(NAME, 
-## +     1, 3)) %>% group_by(gene_family)
-## 
-## > cyc_gf %>% tbl_df
-## Source: local data frame [180 x 6]
-## 
-##              NAME MINIMUM MAXIMUM LENGTH DIRECTION gene_family
-## 1       psaA gene     103   2,361  2,259   forward         psa
-## 2       psaB gene   2,478   4,679  2,202   forward         psa
-## 3       petF gene   4,912   5,244    333   reverse         pet
-## 4      rpl20 gene   5,425   5,844    420   reverse         rpl
-## 5      rpl35 gene   5,854   6,048    195   reverse         rpl
-## 6      ycf42 gene   6,055   6,690    636   reverse         ycf
-## 7       psaE gene   6,792   6,989    198   reverse         psa
-## 8  trnR(ucu) gene   7,154   7,226     73   reverse         trn
-## 9  trnV(uac) gene   7,237   7,308     72   reverse         trn
-## 10      psbH gene   7,575   7,775    201   reverse         psb
-## ..            ...     ...     ...    ...       ...         ...
-## 
-## > weiss_gf <- weiss %>% mutate(gene_family = substr(NAME, 
-## +     1, 3)) %>% group_by(gene_family)
-## 
-## > weiss_gf %>% tbl_df
-## Source: local data frame [180 x 6]
-## 
-##              NAME MINIMUM MAXIMUM LENGTH DIRECTION gene_family
-## 1      rpl32 gene 120,353 120,517    165   reverse         rpl
-## 2       psbY gene 120,762 120,872    111   reverse         psb
-## 3       rrn5 rRNA 121,057 121,182    126   reverse         rrn
-## 4             rns 121,332 124,090  2,759   reverse         rns
-## 5   trnA-UGC gene 124,179 124,251     73   reverse         trn
-## 6   trnI-GAU gene 124,254 124,327     74   reverse         trn
-## 7             rnl 124,384 125,860  1,477   reverse         rnl
-## 8      ycf89 gene 126,149 127,111    963   reverse         ycf
-## 9  trnP(ugg) gene 127,458 127,531     74   forward         trn
-## 10      psaA gene     142   2,400  2,259   forward         psa
-## ..            ...     ...     ...    ...       ...         ...
-## 
-## > cera_gf <- cera %>% mutate(gene_family = substr(NAME, 
-## +     1, 3)) %>% group_by(gene_family)
-## 
-## > cera_gf %>% tbl_df
-## Source: local data frame [169 x 6]
-## 
-##             NAME MINIMUM MAXIMUM LENGTH DIRECTION gene_family
-## 1      psaA gene     362   2,620  2,259   forward         psa
-## 2      psaB gene   2,712   4,913  2,202   forward         psa
-## 3  trnD-GUC gene   5,037   5,110     74   reverse         trn
-## 4  trnS-GCU gene   5,175   5,260     86   reverse         trn
-## 5  trnI-CAU gene   5,298   5,369     72   reverse         trn
-## 6     ycf33 gene   5,546   5,740    195   forward         ycf
-## 7  trnY-GUA gene   7,698   7,780     83   reverse         trn
-## 8  trnV-UAC gene   8,306   8,371     66   forward         trn
-## 9  trnR-UCU gene   8,383   8,455     73   forward         trn
-## 10     trnT(ugu)   8,768   8,839     72   reverse         trn
-## ..           ...     ...     ...    ...       ...         ...
-## 
-## > chaeto_gf <- chaeto %>% mutate(gene_family = substr(NAME, 
-## +     1, 3)) %>% group_by(gene_family)
-## 
-## > chaeto_gf %>% tbl_df
-## Source: local data frame [169 x 6]
-## 
-##              NAME MINIMUM MAXIMUM LENGTH DIRECTION gene_family
-## 1      ycf45 gene       2   1,168  1,167   reverse         ycf
-## 2       petD gene   1,330   1,812    483   reverse         pet
-## 3       petB gene   1,865   2,512    648   reverse         pet
-## 4   trnS-UGA gene   2,571   2,657     87   reverse         trn
-## 5       psaD gene   2,690   3,109    420   reverse         psa
-## 6  trnfM-CAU gene   3,195   3,266     72   reverse         trn
-## 7       rps2 gene   3,388   4,071    684   reverse         rps
-## 8      rpoC2 gene   4,159   8,406  4,248   reverse         rpo
-## 9      rpoC1 gene   8,435  10,840  2,406   reverse         rpo
-## 10      rpoB gene  10,858  15,099  4,242   reverse         rpo
-## ..            ...     ...     ...    ...       ...         ...
+#source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
 ```
  
  *********
@@ -705,21 +555,69 @@ In this figure, the x axis indicates gene family, the y axis indicates gene numb
 From this figure, we can see that Cyclotella and Thalassiosira weissflogii has similar number of forward and reverse genes in each gene family, while Cerataulina and Chaetoceros showing different number of forward and reverse genes in each gene family. 
 
 *********
-**Figure 2:       fdafdafdafa**
-*********
-**Figure 3:     fdafdafd**
+**Figure 2: Comparison of number of genes in each gene family in forward and reverse direction**
+The number of genes in each gene family, using Cyclotella as an example.
+
+```r
+source("../03 Visualizations/cyc_total_pie.R", echo = TRUE)
+```
+
+```
+## 
+## > cyc_total_pie <- ggplot(cyc_gf_num, aes(x = " ", y = total_gene_num, 
+## +     fill = gene_family)) + geom_bar(width = 1, stat = "identity") + 
+## +     c .... [TRUNCATED] 
+## 
+## > print(cyc_total_pie)
+```
+
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
+
+The number of forward genes in each gene family, and the number of reverse genes in each gene family.
+
+
+```r
+source("../03 Visualizations/pie_fr.R", echo = TRUE)
+```
+
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png) 
+
+```
+## 
+## > l_cyc_fr <- list()
+## 
+## > l_cyc_fr[[1]] <- ggplot(cyc_gf_forwardNum, aes(x = " ", 
+## +     y = forward_gene_num, fill = gene_family)) + geom_bar(width = 1, 
+## +     stat = "ident ..." ... [TRUNCATED] 
+## 
+## > l_cyc_fr[[2]] <- ggplot(cyc_gf_reverseNum, aes(x = " ", 
+## +     y = reverse_gene_num, fill = gene_family)) + geom_bar(width = 1, 
+## +     stat = "ident ..." ... [TRUNCATED] 
+## 
+## > l_cyc_fr[[3]] <- ggplot(cyc_gf_num, aes(x = " ", y = total_gene_num, 
+## +     fill = gene_family)) + geom_bar(width = 1, stat = "identity") + 
+## +     c .... [TRUNCATED] 
+## 
+## > pushViewport(viewport(layout = grid.layout(1, 4)))
+## 
+## > print(l_cyc_fr[[1]], vp = viewport(layout.pos.row = 1, 
+## +     layout.pos.col = 1:2))
+## 
+## > print(l_cyc_fr[[2]], vp = viewport(layout.pos.row = 1, 
+## +     layout.pos.col = 3:4))
+```
 
 *********
-**Histogram from non-categorical data**
+**Figure 3:fdafdafd**
+
+*********
+**Figure 4: Histogram from non-categorical data**
 
 ```r
 source("../01 Data/categorical.R", echo = TRUE)
 ```
 
 ```
-## 
-## > ocean <- data.frame(fromJSON(getURL(URLencode("129.152.144.84:5001/rest/native/?query=\"select * from ocean\""), 
-## +     httpheader = c(DB = "jdbc:or ..." ... [TRUNCATED] 
 ## 
 ## > categoricals <- eval(parse(text = substring(getURL(URLencode("http://129.152.144.84:5001/rest/native/?query=\"select * from ocean\""), 
 ## +     httphe .... [TRUNCATED] 
@@ -759,56 +657,60 @@ source("../03 Visualizations/histogram.R", echo = TRUE)
 ## 
 ## > for (i in names(ocean)) {
 ## +     if (i %in% categoricals[[2]]) {
-## +         r <- data.frame(fromJSON(getURL(URLencode("129.152.144.84:5001/rest/native ..." ... [TRUNCATED]
+## +         r <- data.frame(fromJSON(getURL(URLencode("129.152.144.84:5001/rest/native ..." ... [TRUNCATED] 
+## 
+## > startFig <- l_hist[[1]] + ggtitle("Codon Start Position") + 
+## +     geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none", 
+## +     ax .... [TRUNCATED] 
+## 
+## > print(startFig)
 ```
 
 ```
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
-```
-
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
-
-```
-## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
-```
-
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-2.png) 
-
-```
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ```
 
 ```
 ## 
-## > pushViewport(viewport(layout = grid.layout(1, 9)))
+## > endFig <- l_hist[[2]] + ggtitle("Codon End Position") + 
+## +     geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none", 
+## +     axis.t .... [TRUNCATED] 
 ## 
-## > print(l_hist[[1]], vp = viewport(layout.pos.row = 1, 
-## +     layout.pos.col = 1:3))
+## > lenFig <- l_hist[[3]] + ggtitle("Gene Length") + geom_histogram(aes(fill = ..count..)) + 
+## +     theme(axis.text.x = element_text(angle = 50, vjust = .... [TRUNCATED] 
+## 
+## > pushViewport(viewport(layout = grid.layout(3, 4)))
+## 
+## > print(startFig, vp = viewport(layout.pos.row = 1, 
+## +     layout.pos.col = 1:2))
 ```
 
 ```
+## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ```
 
 ```
 ## 
-## > print(l_hist[[2]], vp = viewport(layout.pos.row = 1, 
-## +     layout.pos.col = 4:6))
+## > print(endFig, vp = viewport(layout.pos.row = 1, layout.pos.col = 3:4))
 ```
 
 ```
+## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ```
 
 ```
 ## 
-## > print(l_hist[[3]], vp = viewport(layout.pos.row = 1, 
-## +     layout.pos.col = 7:9))
+## > print(lenFig, vp = viewport(layout.pos.row = 2:3, 
+## +     layout.pos.col = 1:4))
 ```
 
 ```
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-3.png) 
+![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
 
