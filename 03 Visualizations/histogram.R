@@ -16,12 +16,23 @@ for (i in names(ocean)) {
   }
 }
 
-#png("/Users/pcannata/Mine/UT/GitRepositories/DataVisualization/RWorkshop/00 Doc/categoricals2.png", width = 25, height = 20, units = "in", res = 72)
-#grid.newpage()
-pushViewport(viewport(layout = grid.layout(1, 9)))   
+print(l_hist[[1]])
+startFig <- l_hist[[1]] + ggtitle('Codon Start Position') + geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none",axis.text.x=element_text(angle=50, vjust=0.5))
+print(startFig)
 
-print(l_hist[[1]], vp = viewport(layout.pos.row = 1, layout.pos.col = 1:3))
-print(l_hist[[2]], vp = viewport(layout.pos.row = 1, layout.pos.col = 4:6))
-print(l_hist[[3]], vp = viewport(layout.pos.row = 1, layout.pos.col = 7:9))
+
+endFig <- l_hist[[2]] + ggtitle('Codon End Position')+ geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none",axis.text.x=element_text(angle=50, vjust=0.5))
+print(endFig)
+
+lenFig <- l_hist[[3]] + ggtitle('Gene Length') + geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none",axis.text.x=element_text(angle=50, vjust=0.5))
+print(lenFig)
+
+#png("/Users/annayu/Desktop/DataVisualization/DV_RProject3/00 Doc/histogram.png", width = 25, height = 30, units = "in", res = 72)
+#grid.newpage()
+pushViewport(viewport(layout = grid.layout(3, 4)))   
+
+print(startFig, vp = viewport(layout.pos.row = 1, layout.pos.col = 1:2))
+print(endFig, vp = viewport(layout.pos.row = 1, layout.pos.col = 3:4))
+print(lenFig, vp = viewport(layout.pos.row = 2:3, layout.pos.col = 1:4))
 
 
