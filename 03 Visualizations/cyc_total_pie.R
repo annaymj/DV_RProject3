@@ -1,0 +1,3 @@
+cyc_total_pie <- ggplot(cyc_gf_num,aes(x=" ",y=total_gene_num,fill=gene_family)) + geom_bar(width =1, stat = "identity") + coord_polar("y",start = pi/3) + theme(axis.text = element_blank(), axis.ticks = element_blank(), axis.title=element_blank(),panel.grid  = element_blank(), panel.background = element_blank(),panel.border = element_blank())  + labs(title='Cyclotella: Number of genes in each gene family')
+
+print(cyc_total_pie)

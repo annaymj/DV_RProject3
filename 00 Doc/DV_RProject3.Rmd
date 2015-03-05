@@ -43,32 +43,33 @@ source("../01 Data/chaetoceros.R", echo = TRUE)
 ```
 
 *********
- Data Wrangling 
+
+**Table 5: Thalassiosira oceanica**
+```{r}
+source("../01 Data/ocean.R", echo = TRUE)
+```
+
+*********
+ Data Wrangling 1
  
  1.For each original table, create new column gene_family by extracting the first three charaters from gene NAME, and further group by gene family.
 ```{r}
 source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
 ```
  *********
- Data Wrangling 1
- 
- For each original table, create new column gene_family by extracting the first three charaters from gene NAME, and further group by gene family.
-```{r}
-source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
-```
-*********
  Data Wrangling 2
  
-blalalala
+ 
 ```{r}
-source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
+source("../02 Data Wrangling/cyc_FR.R", echo = TRUE)
 ```
+
 *********
  Data Wrangling 3
  
 blalalala
 ```{r}
-source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
+#source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
 ```
  
  *********
@@ -82,12 +83,23 @@ In this figure, the x axis indicates gene family, the y axis indicates gene numb
 From this figure, we can see that Cyclotella and Thalassiosira weissflogii has similar number of forward and reverse genes in each gene family, while Cerataulina and Chaetoceros showing different number of forward and reverse genes in each gene family. 
 
 *********
-**Figure 2:       fdafdafdafa**
-*********
-**Figure 3:     fdafdafd**
+**Figure 2: Comparison of number of genes in each gene family in forward and reverse direction**
+The number of genes in each gene family, using Cyclotella as an example.
+```{r}
+source("../03 Visualizations/cyc_total_pie.R", echo = TRUE)
+```
+
+The number of forward genes in each gene family, and the number of reverse genes in each gene family.
+
+```{r}
+source("../03 Visualizations/pie_fr.R", echo = TRUE)
+```
 
 *********
-**Histogram from non-categorical data**
+**Figure 3:fdafdafd**
+
+*********
+**Figure 4: Histogram from non-categorical data**
 ```{r}
 source("../01 Data/categorical.R", echo = TRUE)
 source("../03 Visualizations/histogram.R", echo = TRUE)
