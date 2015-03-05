@@ -29,10 +29,10 @@ lenFig <- l_hist[[3]] + ggtitle('Gene Length') + geom_histogram(aes(fill = ..cou
 
 #png("/Users/annayu/Desktop/DataVisualization/DV_RProject3/00 Doc/histogram.png", width = 25, height = 30, units = "in", res = 72)
 #grid.newpage()
-pushViewport(viewport(layout = grid.layout(3, 4)))   
+pushViewport(viewport(layout = grid.layout(5, 4)))   
 
-print(startFig, vp = viewport(layout.pos.row = 1, layout.pos.col = 1:2))
-print(endFig, vp = viewport(layout.pos.row = 1, layout.pos.col = 3:4))
-print(lenFig, vp = viewport(layout.pos.row = 2:3, layout.pos.col = 1:4))
+print(startFig, vp = viewport(layout.pos.row = 1:2, layout.pos.col = 1:2))
+print(endFig, vp = viewport(layout.pos.row = 1:2, layout.pos.col = 3:4))
+print(lenFig, vp = viewport(layout.pos.row = 3:5, layout.pos.col = 1:4))
 
 

@@ -680,9 +680,9 @@ source("../03 Visualizations/histogram.R", echo = TRUE)
 ## > lenFig <- l_hist[[3]] + ggtitle("Gene Length") + geom_histogram(aes(fill = ..count..)) + 
 ## +     theme(axis.text.x = element_text(angle = 50, vjust = .... [TRUNCATED] 
 ## 
-## > pushViewport(viewport(layout = grid.layout(3, 4)))
+## > pushViewport(viewport(layout = grid.layout(5, 4)))
 ## 
-## > print(startFig, vp = viewport(layout.pos.row = 1, 
+## > print(startFig, vp = viewport(layout.pos.row = 1:2, 
 ## +     layout.pos.col = 1:2))
 ```
 
@@ -693,7 +693,8 @@ source("../03 Visualizations/histogram.R", echo = TRUE)
 
 ```
 ## 
-## > print(endFig, vp = viewport(layout.pos.row = 1, layout.pos.col = 3:4))
+## > print(endFig, vp = viewport(layout.pos.row = 1:2, 
+## +     layout.pos.col = 3:4))
 ```
 
 ```
@@ -703,7 +704,7 @@ source("../03 Visualizations/histogram.R", echo = TRUE)
 
 ```
 ## 
-## > print(lenFig, vp = viewport(layout.pos.row = 2:3, 
+## > print(lenFig, vp = viewport(layout.pos.row = 3:5, 
 ## +     layout.pos.col = 1:4))
 ```
 
