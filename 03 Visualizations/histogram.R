@@ -18,7 +18,7 @@ for (i in names(ocean)) {
 
 #print(l_hist[[1]])
 startFig <- l_hist[[1]] + ggtitle('Codon Start Position') + geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none",axis.text.x=element_text(angle=50, vjust=0.5))+labs(x="Nucleotide position")
-print(startFig)
+#print(startFig)
 
 
 endFig <- l_hist[[2]] + ggtitle('Codon End Position')+ geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none",axis.text.x=element_text(angle=50, vjust=0.5))+labs(x="Nucleotide position")

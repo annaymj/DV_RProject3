@@ -1,0 +1,2 @@
+ocean_g<-ggplot(data = ocean_gf,mapping = aes(x = gene_family)) + layer(geom="bar",mapping = aes(fill=DIRECTION))+labs(title = "Thalassiosira oceanica", x= "Gene Family", y="Gene Number")+labs(title='Thalassiosira oceanica') + theme(plot.title=element_text(size=13, face="bold", vjust=2))+theme(axis.text.x=element_text(angle=50, vjust=0.5))
+ocean_g

@@ -1,0 +1,1 @@
+setdiff(full_df,inner_df)

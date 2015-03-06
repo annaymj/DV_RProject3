@@ -1,6 +1,9 @@
 l_gf <-list()
 
-l_gf[[1]] <- ggplot(data = cyc_gf,mapping = aes(x = gene_family)) + layer(geom="bar",mapping = aes(fill=DIRECTION))+labs(title = "Cyclotella", x= "Gene Family", y="Gene Number")+ theme(axis.ticks.x=element_blank(), axis.text.x=element_blank()) + theme(legend.position="none")+labs(title='Number of genes in each gene family') + theme(plot.title=element_text(size=13, face="bold", vjust=2))
+ocean_g<-ggplot(data = ocean_gf,mapping = aes(x = gene_family)) + layer(geom="bar",mapping = aes(fill=DIRECTION))+labs(title = "Thalassiosira oceanica", x= "Gene Family", y="Gene Number")+ theme(axis.ticks.x=element_blank(), axis.text.x=element_blank()) +labs(title='oceanica') + theme(plot.title=element_text(size=13, face="bold", vjust=2))
+ocean_g
+
+l_gf[[1]] <- ggplot(data = cyc_gf,mapping = aes(x = gene_family)) + layer(geom="bar",mapping = aes(fill=DIRECTION))+labs(title = "Cyclotella", x= "Gene Family", y="Gene Number")+ theme(axis.ticks.x=element_blank(), axis.text.x=element_blank()) + theme(legend.position="none")
 
 
 l_gf[[2]] <- ggplot(data = weiss_gf,mapping = aes(x = gene_family)) + layer(geom="bar",mapping = aes(fill=DIRECTION))+labs(title = "Thalassiosira weissflogii", x= "Gene Family",y="Gene Number")+ theme(axis.ticks.x=element_blank(), axis.text.x=element_blank()) + theme(legend.position="none")

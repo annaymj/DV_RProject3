@@ -10,3 +10,6 @@ cera_gf %>% tbl_df
 chaeto_gf<- chaeto %>% mutate(gene_family=substr(NAME,1,3)) %>% group_by(gene_family)
 chaeto_gf %>% tbl_df
 
+ocean_gf<- ocean %>% mutate(gene_family=substr(NAME,1,3)) %>% group_by(gene_family)
+ocean_gf %>% tbl_df
+

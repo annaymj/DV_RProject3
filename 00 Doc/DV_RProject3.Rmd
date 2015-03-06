@@ -16,6 +16,8 @@ source("../01 Data/loadPackage.R", echo = TRUE)
 *********
 First, we displayed a few lines of the dataset stored in oracle database. The table includes Name(gene name), MINIMUM (gene start position), MAXIMUM(gene end position), LENGTH(gene length), DIRECTION(sense and anti-sense strand).
 
+This table is loaded in project2, JSON makes error in getting the table, we appreciate Dr. Cannata agreed us to use the previous method to get this table.
+
 **Table 1: Cyclotella**
 ```{r}
 source("../01 Data/cyclotella.R", echo = TRUE)
@@ -23,6 +25,7 @@ source("../01 Data/cyclotella.R", echo = TRUE)
 
 *********
 **Table 2: Thalassiosira weissflogii**
+
 Thalassiosira weissflogii is a closely related species to Cyclotella. They both belong to the same Thalassiosirales family.
 
 ```{r}
@@ -31,6 +34,7 @@ source("../01 Data/weiss.R", echo = TRUE)
 
 *********
 **Table 3: Cerataulina daemon**
+
 Cerataulina daemon is more closely related to Chaetoros simplex than the two Thalassiosirales.
 ```{r}
 source("../01 Data/cerataulina.R", echo = TRUE)
@@ -50,14 +54,14 @@ source("../01 Data/ocean.R", echo = TRUE)
 ```
 
 *********
- Data Wrangling 1
+**Data Wrangling 1**
  
  1.For each original table, create new column gene_family by extracting the first three charaters from gene NAME, and further group by gene family.
 ```{r}
 source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
 ```
  *********
- Data Wrangling 2
+ **Data Wrangling 2**
  
  
 ```{r}
@@ -65,17 +69,37 @@ source("../02 Data Wrangling/cyc_FR.R", echo = TRUE)
 ```
 
 *********
- Data Wrangling 3
+**Data Wrangling 3**
  
-blalalala
+Create a new table for each with gene_family as first column, and average gene length of each gene family as second column.
 ```{r}
-#source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
+source("../02 Data Wrangling/joinData.R", echo = TRUE)
+```
+
+First, we use inner_join, we can see the inner joined table shows 27 rows and 6 columns.
+```{r}
+source("../02 Data Wrangling/innerJoin.R", echo = TRUE)
+```
+ 
+Second, we use full_join, we can see the full joined table shows 31 rows and 6 columns.
+```{r}
+source("../02 Data Wrangling/outJoin.R", echo = TRUE)
+```
+ 
+Finally, we use setdiff, this method results 4 rows and 6 columns. In this dataframe, we can easily see which gene absent in each species. As gene content is an important indication of environment selection and similarity in gene content is useful in phylogeny inference.
+
+```{r}
+source("../02 Data Wrangling/setdiff.R", echo = TRUE)
 ```
  
  *********
  **Figure 1: Comparison of number of genes in different species**
 ```{r}
 source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
+source("../03 Visualizations/ocean_g.R", echo = TRUE)
+```
+
+```{r}
 source("../03 Visualizations/R3_figure1.R", echo = TRUE)
 ```
 In this figure, the x axis indicates gene family, the y axis indicates gene number in that family. The red color indicates genes in forward direction (sense strand), and the blue color indicates genes in reverse direction (anti-sense strand).
@@ -96,8 +120,17 @@ source("../03 Visualizations/pie_fr.R", echo = TRUE)
 ```
 
 *********
-**Figure 3:fdafdafd**
+**Figure 3:Average Gene Length in Each Gene Family**
 
+First, we reshape the data using gather(). Below we show the data frame before and after reshape
+```{r}
+source("../02 Data Wrangling/reshapeDF.R", echo = TRUE)
+```
+
+We produced a bubble plot demenostrating the average gene length in each gene family for 4 different diatom species.
+```{r}
+source("../03 Visualizations/joinFigure.R", echo = TRUE)
+```
 *********
 **Figure 4: Histogram from non-categorical data**
 ```{r}

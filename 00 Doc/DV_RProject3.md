@@ -112,6 +112,8 @@ source("../01 Data/loadPackage.R", echo = TRUE)
 *********
 First, we displayed a few lines of the dataset stored in oracle database. The table includes Name(gene name), MINIMUM (gene start position), MAXIMUM(gene end position), LENGTH(gene length), DIRECTION(sense and anti-sense strand).
 
+This table is loaded in project2, JSON makes error in getting the table, we appreciate Dr. Cannata agreed us to use the previous method to get this table.
+
 **Table 1: Cyclotella**
 
 ```r
@@ -141,6 +143,7 @@ source("../01 Data/cyclotella.R", echo = TRUE)
 
 *********
 **Table 2: Thalassiosira weissflogii**
+
 Thalassiosira weissflogii is a closely related species to Cyclotella. They both belong to the same Thalassiosirales family.
 
 
@@ -172,6 +175,7 @@ source("../01 Data/weiss.R", echo = TRUE)
 
 *********
 **Table 3: Cerataulina daemon**
+
 Cerataulina daemon is more closely related to Chaetoros simplex than the two Thalassiosirales.
 
 ```r
@@ -244,7 +248,7 @@ source("../01 Data/ocean.R", echo = TRUE)
 ```
 
 *********
- Data Wrangling 1
+**Data Wrangling 1**
  
  1.For each original table, create new column gene_family by extracting the first three charaters from gene NAME, and further group by gene family.
 
@@ -329,9 +333,28 @@ source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
 ## 9      rpoC1 gene   8,435  10,840  2,406   reverse         rpo
 ## 10      rpoB gene  10,858  15,099  4,242   reverse         rpo
 ## ..            ...     ...     ...    ...       ...         ...
+## 
+## > ocean_gf <- ocean %>% mutate(gene_family = substr(NAME, 
+## +     1, 3)) %>% group_by(gene_family)
+## 
+## > ocean_gf %>% tbl_df
+## Source: local data frame [185 x 6]
+## 
+##           NAME START_POS END_POS LENGTH DIRECTION gene_family
+## 1     psaA CDS       122    2380   2259   forward         psa
+## 2     psaB CDS      2484    4685   2202   forward         psa
+## 3    trnV tRNA      5389    5460     72   forward         trn
+## 4  trnR-2 tRNA      5480    5552     73   forward         trn
+## 5   orf127 CDS      6165    6587    423   reverse         orf
+## 6    rpl19 CDS      7142    7504    363   reverse         rpl
+## 7  trnM-2 tRNA      7591    7675     85   reverse         trn
+## 8   ssra tmRNA      7680    8013    334   reverse         ssr
+## 9  trnR-1 tRNA      8072    8144     73   reverse         trn
+## 10    atpA CDS      9008   10519   1512   reverse         atp
+## ..         ...       ...     ...    ...       ...         ...
 ```
  *********
- Data Wrangling 2
+ **Data Wrangling 2**
  
  
 
@@ -420,12 +443,196 @@ source("../02 Data Wrangling/cyc_FR.R", echo = TRUE)
 ```
 
 *********
- Data Wrangling 3
+**Data Wrangling 3**
  
-blalalala
+Create a new table for each with gene_family as first column, and average gene length of each gene family as second column.
 
 ```r
-#source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
+source("../02 Data Wrangling/joinData.R", echo = TRUE)
+```
+
+```
+## 
+## > cyc_avgLen <- cyc_gf %>% group_by(gene_family) %>% 
+## +     summarise(cyc_len = mean(LENGTH))
+## 
+## > cyc_avgLen %>% tbl_df
+## Source: local data frame [27 x 2]
+## 
+##    gene_family cyc_len
+## 1          atp  63.250
+## 2          cbb 112.000
+## 3          ccs  64.500
+## 4          chl   1.000
+## 5          clp  40.000
+## 6          dna  13.500
+## 7          ffs  21.000
+## 8          fts  20.000
+## 9          gro  18.000
+## 10         pet  80.125
+## ..         ...     ...
+## 
+## > weiss_avgLen <- weiss_gf %>% group_by(gene_family) %>% 
+## +     summarise(weiss_len = mean(LENGTH))
+## 
+## > weiss_avgLen %>% tbl_df
+## Source: local data frame [27 x 2]
+## 
+##    gene_family weiss_len
+## 1          atp    63.375
+## 2          cbb   110.000
+## 3          ccs    62.500
+## 4          chl     2.000
+## 5          clp    41.000
+## 6          dna    13.500
+## 7          ffs    22.000
+## 8          fts    20.000
+## 9          gro    18.000
+## 10         pet    78.375
+## ..         ...       ...
+## 
+## > ocean_avgLen <- ocean_gf %>% group_by(gene_family) %>% 
+## +     summarise(ocean_len = mean(LENGTH))
+## 
+## > ocean_avgLen %>% tbl_df
+## Source: local data frame [29 x 2]
+## 
+##    gene_family ocean_len
+## 1          atp     736.5
+## 2          cbb     864.0
+## 3          ccs    1122.0
+## 4          chl    1059.0
+## 5          clp    2799.0
+## 6          dna    1596.0
+## 7          ffs     100.0
+## 8          flr      75.0
+## 9          fts    1929.0
+## 10         gro    1593.0
+## ..         ...       ...
+## 
+## > cera_avgLen <- cera_gf %>% group_by(gene_family) %>% 
+## +     summarise(cera_len = mean(LENGTH))
+## 
+## > cera_avgLen %>% tbl_df
+## Source: local data frame [29 x 2]
+## 
+##    gene_family cera_len
+## 1          acp     51.0
+## 2          atp     66.5
+## 3          cbb    116.0
+## 4          ccs     64.0
+## 5          chl      3.0
+## 6          clp     42.0
+## 7          dna     15.0
+## 8          ffs     23.0
+## 9          fts     21.0
+## 10         gro     19.0
+## ..         ...      ...
+## 
+## > chaeto_avgLen <- chaeto_gf %>% group_by(gene_family) %>% 
+## +     summarise(chaeto_len = mean(LENGTH))
+## 
+## > chaeto_avgLen %>% tbl_df
+## Source: local data frame [29 x 2]
+## 
+##    gene_family chaeto_len
+## 1          acp      48.00
+## 2          atp      65.75
+## 3          cbb     115.00
+## 4          ccs      64.00
+## 5          chl       4.00
+## 6          clp      41.00
+## 7          dna      15.50
+## 8          ffs      24.00
+## 9          fts      22.00
+## 10         gro      20.00
+## ..         ...        ...
+```
+
+First, we use inner_join, we can see the inner joined table shows 27 rows and 6 columns.
+
+```r
+source("../02 Data Wrangling/innerJoin.R", echo = TRUE)
+```
+
+```
+## 
+## > inner_df1 <- inner_join(cyc_avgLen, weiss_avgLen, 
+## +     by = "gene_family")
+## 
+## > inner_df2 <- inner_join(inner_df1, ocean_avgLen, by = "gene_family")
+## 
+## > inner_df3 <- inner_join(inner_df2, cera_avgLen, by = "gene_family")
+## 
+## > inner_df <- inner_join(inner_df3, chaeto_avgLen, by = "gene_family")
+## 
+## > inner_df %>% tbl_df
+## Source: local data frame [27 x 6]
+## 
+##    gene_family cyc_len weiss_len ocean_len cera_len chaeto_len
+## 1          atp  63.250    63.375  736.5000    66.50      65.75
+## 2          cbb 112.000   110.000  864.0000   116.00     115.00
+## 3          ccs  64.500    62.500 1122.0000    64.00      64.00
+## 4          chl   1.000     2.000 1059.0000     3.00       4.00
+## 5          clp  40.000    41.000 2799.0000    42.00      41.00
+## 6          dna  13.500    13.500 1596.0000    15.00      15.50
+## 7          ffs  21.000    22.000  100.0000    23.00      24.00
+## 8          fts  20.000    20.000 1929.0000    21.00      22.00
+## 9          gro  18.000    18.000 1593.0000    19.00      20.00
+## 10         pet  80.125    78.375  357.8571    82.75      81.50
+## ..         ...     ...       ...       ...      ...        ...
+```
+ 
+Second, we use full_join, we can see the full joined table shows 31 rows and 6 columns.
+
+```r
+source("../02 Data Wrangling/outJoin.R", echo = TRUE)
+```
+
+```
+## 
+## > full_df1 <- full_join(cyc_avgLen, weiss_avgLen, by = "gene_family")
+## 
+## > full_df2 <- full_join(full_df1, ocean_avgLen, by = "gene_family")
+## 
+## > full_df3 <- full_join(full_df2, cera_avgLen, by = "gene_family")
+## 
+## > full_df <- full_join(full_df3, chaeto_avgLen, by = "gene_family")
+## 
+## > full_df %>% tbl_df
+## Source: local data frame [31 x 6]
+## 
+##    gene_family cyc_len weiss_len ocean_len cera_len chaeto_len
+## 1          atp  63.250    63.375  736.5000    66.50      65.75
+## 2          cbb 112.000   110.000  864.0000   116.00     115.00
+## 3          ccs  64.500    62.500 1122.0000    64.00      64.00
+## 4          chl   1.000     2.000 1059.0000     3.00       4.00
+## 5          clp  40.000    41.000 2799.0000    42.00      41.00
+## 6          dna  13.500    13.500 1596.0000    15.00      15.50
+## 7          ffs  21.000    22.000  100.0000    23.00      24.00
+## 8          fts  20.000    20.000 1929.0000    21.00      22.00
+## 9          gro  18.000    18.000 1593.0000    19.00      20.00
+## 10         pet  80.125    78.375  357.8571    82.75      81.50
+## ..         ...     ...       ...       ...      ...        ...
+```
+ 
+Finally, we use setdiff, this method results 4 rows and 6 columns. In this dataframe, we can easily see which gene absent in each species. As gene content is an important indication of environment selection and similarity in gene content is useful in phylogeny inference.
+
+
+```r
+source("../02 Data Wrangling/setdiff.R", echo = TRUE)
+```
+
+```
+## 
+## > setdiff(full_df, inner_df)
+## Source: local data frame [4 x 6]
+## 
+##   gene_family cyc_len weiss_len ocean_len cera_len chaeto_len
+## 1         flr      NA        NA        75       NA         NA
+## 2         orf      NA        NA       423       NA         NA
+## 3         acp      NA        NA        NA       51         48
+## 4         syf      NA        NA        NA       38         37
 ```
  
  *********
@@ -512,17 +719,59 @@ source("../02 Data Wrangling/geneFamily.R", echo = TRUE)
 ## 9      rpoC1 gene   8,435  10,840  2,406   reverse         rpo
 ## 10      rpoB gene  10,858  15,099  4,242   reverse         rpo
 ## ..            ...     ...     ...    ...       ...         ...
+## 
+## > ocean_gf <- ocean %>% mutate(gene_family = substr(NAME, 
+## +     1, 3)) %>% group_by(gene_family)
+## 
+## > ocean_gf %>% tbl_df
+## Source: local data frame [185 x 6]
+## 
+##           NAME START_POS END_POS LENGTH DIRECTION gene_family
+## 1     psaA CDS       122    2380   2259   forward         psa
+## 2     psaB CDS      2484    4685   2202   forward         psa
+## 3    trnV tRNA      5389    5460     72   forward         trn
+## 4  trnR-2 tRNA      5480    5552     73   forward         trn
+## 5   orf127 CDS      6165    6587    423   reverse         orf
+## 6    rpl19 CDS      7142    7504    363   reverse         rpl
+## 7  trnM-2 tRNA      7591    7675     85   reverse         trn
+## 8   ssra tmRNA      7680    8013    334   reverse         ssr
+## 9  trnR-1 tRNA      8072    8144     73   reverse         trn
+## 10    atpA CDS      9008   10519   1512   reverse         atp
+## ..         ...       ...     ...    ...       ...         ...
 ```
+
+```r
+source("../03 Visualizations/ocean_g.R", echo = TRUE)
+```
+
+```
+## 
+## > ocean_g <- ggplot(data = ocean_gf, mapping = aes(x = gene_family)) + 
+## +     layer(geom = "bar", mapping = aes(fill = DIRECTION)) + labs(title = "Tha ..." ... [TRUNCATED] 
+## 
+## > ocean_g
+```
+
+![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
+
 
 ```r
 source("../03 Visualizations/R3_figure1.R", echo = TRUE)
 ```
 
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png) 
-
 ```
 ## 
 ## > l_gf <- list()
+## 
+## > ocean_g <- ggplot(data = ocean_gf, mapping = aes(x = gene_family)) + 
+## +     layer(geom = "bar", mapping = aes(fill = DIRECTION)) + labs(title = "Tha ..." ... [TRUNCATED] 
+## 
+## > ocean_g
+```
+
+![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png) 
+
+```
 ## 
 ## > l_gf[[1]] <- ggplot(data = cyc_gf, mapping = aes(x = gene_family)) + 
 ## +     layer(geom = "bar", mapping = aes(fill = DIRECTION)) + labs(title = "Cyc ..." ... [TRUNCATED] 
@@ -571,7 +820,7 @@ source("../03 Visualizations/cyc_total_pie.R", echo = TRUE)
 ## > print(cyc_total_pie)
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
+![plot of chunk unnamed-chunk-15](figure/unnamed-chunk-15-1.png) 
 
 The number of forward genes in each gene family, and the number of reverse genes in each gene family.
 
@@ -580,7 +829,7 @@ The number of forward genes in each gene family, and the number of reverse genes
 source("../03 Visualizations/pie_fr.R", echo = TRUE)
 ```
 
-![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png) 
+![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16-1.png) 
 
 ```
 ## 
@@ -608,8 +857,73 @@ source("../03 Visualizations/pie_fr.R", echo = TRUE)
 ```
 
 *********
-**Figure 3:fdafdafd**
+**Figure 3:Average Gene Length in Each Gene Family**
 
+First, we reshape the data using gather(). Below we show the data frame before and after reshape
+
+```r
+source("../02 Data Wrangling/reshapeDF.R", echo = TRUE)
+```
+
+```
+## 
+## > names(inner_df) <- c("gene_family", "cyc", "weiss", 
+## +     "ocean", "cera", "chaeto")
+## 
+## > inner_df %>% tbl_df
+## Source: local data frame [27 x 6]
+## 
+##    gene_family     cyc   weiss     ocean   cera chaeto
+## 1          atp  63.250  63.375  736.5000  66.50  65.75
+## 2          cbb 112.000 110.000  864.0000 116.00 115.00
+## 3          ccs  64.500  62.500 1122.0000  64.00  64.00
+## 4          chl   1.000   2.000 1059.0000   3.00   4.00
+## 5          clp  40.000  41.000 2799.0000  42.00  41.00
+## 6          dna  13.500  13.500 1596.0000  15.00  15.50
+## 7          ffs  21.000  22.000  100.0000  23.00  24.00
+## 8          fts  20.000  20.000 1929.0000  21.00  22.00
+## 9          gro  18.000  18.000 1593.0000  19.00  20.00
+## 10         pet  80.125  78.375  357.8571  82.75  81.50
+## ..         ...     ...     ...       ...    ...    ...
+## 
+## > tidy_inner_df <- gather(inner_df, "species", "avg_length", 
+## +     2:6)
+## 
+## > tidy_inner_df %>% tbl_df
+## Source: local data frame [135 x 3]
+## 
+##    gene_family species avg_length
+## 1          atp     cyc     63.250
+## 2          cbb     cyc    112.000
+## 3          ccs     cyc     64.500
+## 4          chl     cyc      1.000
+## 5          clp     cyc     40.000
+## 6          dna     cyc     13.500
+## 7          ffs     cyc     21.000
+## 8          fts     cyc     20.000
+## 9          gro     cyc     18.000
+## 10         pet     cyc     80.125
+## ..         ...     ...        ...
+```
+
+We produced a bubble plot demenostrating the average gene length in each gene family for 4 different diatom species.
+
+```r
+source("../03 Visualizations/joinFigure.R", echo = TRUE)
+```
+
+```
+## 
+## > sub_df <- tidy_inner_df %>% filter(species %in% c("weiss", 
+## +     "cyc", "cera", "chaeto"))
+## 
+## > g <- ggplot(sub_df, aes(x = gene_family, y = avg_length, 
+## +     size = species, color = species)) + geom_point() + ggtitle("Average gene length of \ ..." ... [TRUNCATED] 
+## 
+## > g
+```
+
+![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png) 
 *********
 **Figure 4: Histogram from non-categorical data**
 
@@ -663,16 +977,6 @@ source("../03 Visualizations/histogram.R", echo = TRUE)
 ## +     geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none", 
 ## +     ax .... [TRUNCATED] 
 ## 
-## > print(startFig)
-```
-
-```
-## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
-## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
-```
-
-```
-## 
 ## > endFig <- l_hist[[2]] + ggtitle("Codon End Position") + 
 ## +     geom_histogram(aes(fill = ..count..)) + theme(legend.position = "none", 
 ## +     axis.t .... [TRUNCATED] 
@@ -713,5 +1017,5 @@ source("../03 Visualizations/histogram.R", echo = TRUE)
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ```
 
-![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
+![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-1.png) 
 
